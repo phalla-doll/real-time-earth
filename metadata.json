@@ -1,0 +1,5 @@
+{
+  "name": "real-time-earth",
+  "description": "A high-fidelity 3D Earth visualization that rotates in real-time synchronized with UTC. Features solar and sidereal rotation modes, atmospheric clouds, and accurate axial tilt.",
+  "requestFramePermissions": []
+}
