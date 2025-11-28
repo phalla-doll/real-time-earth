@@ -62,21 +62,27 @@ export const RealTimeGlobe: React.FC<RealTimeGlobeProps> = ({
       earthRef.current.rotation.y = rotationAngle;
       
     } else {
-      // FAST FORWARD / SIMULATION MODE
-      // In this mode, we add relative rotation each frame
+      // FAST FORWARD / DEMO MODE
+      // Since 10x real-time (2.4 hours/rotation) is too slow to perceive visually,
+      // we apply a large multiplier to the non-1x speeds to create a visible "spin".
+      // Base Multiplier: 1000. 
+      // 3x button -> 3000x speed (approx 1 rotation per 30s)
+      // 10x button -> 10000x speed (approx 1 rotation per 8.6s)
+      const VISUAL_SPEED_MULTIPLIER = 1000;
+      const effectiveSpeed = speed * VISUAL_SPEED_MULTIPLIER;
+      
       const angularVelocity = (Math.PI * 2) / dayLengthSeconds;
-      const step = angularVelocity * speed * delta;
+      const step = angularVelocity * effectiveSpeed * delta;
       
       earthRef.current.rotation.y += step;
     }
 
     // Cloud Wind Animation (UV Scroll)
     // Simulates atmospheric circulation relative to surface
-    // Base wind speed factor (approx 0.00005 looks realistic for "moving clouds")
     if (showClouds) {
-      // Move clouds slightly West to East (or East to West depending on sign)
-      // Negative offset moves texture to the right (Simulating East-to-West trade winds)
-      cloudsMap.offset.x -= delta * speed * 0.00004;
+      // Use a disconnected speed for clouds in demo mode so they don't strobe
+      const cloudSpeed = speed === 1 ? 1 : 20; 
+      cloudsMap.offset.x -= delta * cloudSpeed * 0.00004;
     }
   });
 

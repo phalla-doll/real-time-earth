@@ -25,7 +25,12 @@ const App: React.FC = () => {
   const toggleAxis = () => setEarthState(prev => ({ ...prev, showAxis: !prev.showAxis }));
   const toggleAutoRotate = () => setEarthState(prev => ({ ...prev, autoRotate: !prev.autoRotate }));
   
-  const setSpeed = (speed: number) => setEarthState(prev => ({ ...prev, speed }));
+  const setSpeed = (speed: number) => setEarthState(prev => ({ 
+    ...prev, 
+    speed,
+    // If speed is greater than 1, user likely wants to see animation, so force auto-rotate on
+    autoRotate: speed > 1 ? true : prev.autoRotate
+  }));
 
   return (
     <div className="relative w-full h-full bg-black font-sans">
@@ -176,11 +181,12 @@ const App: React.FC = () => {
             
             {/* Info Box */}
             <div className="mt-6 p-3 bg-emerald-900/10 border-l-2 border-emerald-500/50 text-[10px] text-emerald-400/60 leading-relaxed font-mono rounded-none">
-               <span className="text-emerald-500 font-bold">INFO_LOG:</span> ROTATION IS COMPUTED CONTINUOUSLY FROM UTC.
+               <span className="text-emerald-500 font-bold">INFO_LOG:</span>
+               {earthState.speed === 1 ? " SYSTEM SYNCHRONIZED WITH UTC." : " DEMO VISUALIZATION MODE ACTIVE."}
                <br/>
                CURRENT MODE: {earthState.mode === RotationMode.SIDEREAL ? "FIXED STARS RELATIVE" : "SUN RELATIVE"}.
                <br/>
-               SPEED MULTIPLIER: {earthState.speed}x.
+               SPEED MULTIPLIER: {earthState.speed}x {earthState.speed > 1 ? "(SCALED FOR VISIBILITY)" : ""}.
             </div>
           </div>
         </div>
