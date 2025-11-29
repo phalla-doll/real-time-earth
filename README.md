@@ -8,7 +8,7 @@ Built with React, Three.js, and TypeScript for an immersive, scientifically accu
 
 ## ✨ Features
 
-- **🕐 Real-Time UTC Synchronization** - Earth rotates in perfect sync with actual UTC time at 1x speed
+- **🕐 Real-Time Synchronization** - Earth rotates in perfect sync with actual time at 1x speed (Displaying User Local Time)
 - **🌞 Dual Rotation Modes**
   - **Solar Day** (86,400s) - Rotation relative to the Sun
   - **Sidereal Day** (86,164s) - Rotation relative to fixed stars
@@ -92,7 +92,7 @@ Built with React, Three.js, and TypeScript for an immersive, scientifically accu
 - **SIDEREAL** - Earth rotates relative to fixed stars (~23h 56m)
 
 **Rotation Speed**
-- **1x** - Real-time UTC synchronization (actual Earth rotation speed)
+- **1x** - Real-time synchronization (actual Earth rotation speed)
 - **3x, 5x, 10x** - Accelerated rotation for visualization (multiplied by 1000x for visibility)
 
 **Toggles**
@@ -104,7 +104,7 @@ Built with React, Three.js, and TypeScript for an immersive, scientifically accu
 
 ### Status Indicators
 
-- **LIVE UTC SYNC ACTIVE** - Running at real-time speed (1x)
+- **LIVE SYNC ACTIVE** - Running at real-time speed (1x)
 - **SIMULATION SPEED Nx** - Running at accelerated speed
 - **ROTATION PAUSED** - Auto-rotate is disabled
 

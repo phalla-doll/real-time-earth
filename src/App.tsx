@@ -77,6 +77,14 @@ const IntroOverlay: React.FC<{ ready: boolean; onComplete: () => void }> = ({ re
 const App: React.FC = () => {
   const [resourcesReady, setResourcesReady] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const [earthState, setEarthState] = useState<EarthState>({
     mode: RotationMode.SOLAR,
@@ -150,7 +158,7 @@ const App: React.FC = () => {
                   Real-Time Earth
                 </h1>
                 <p className="text-[9px] text-emerald-600/80 font-mono mt-1 uppercase tracking-wider">
-                  System: UTC // Axial Tilt: 23.4°
+                  Local Time: {currentTime.toLocaleTimeString()} // Axial Tilt: 23.4°
                 </p>
               </div>
 
@@ -299,7 +307,7 @@ const App: React.FC = () => {
                 {/* Info Box */}
                 <div className="mt-4 p-2 bg-emerald-900/10 border-l-2 border-emerald-500/50 text-[9px] text-emerald-400/60 leading-relaxed font-mono rounded-none">
                    <span className="text-emerald-500 font-bold">INFO_LOG:</span>
-                   {earthState.speed === 1 ? " SYSTEM SYNCHRONIZED WITH UTC." : " DEMO VISUALIZATION MODE ACTIVE."}
+                   {earthState.speed === 1 ? " SYSTEM SYNCHRONIZED WITH REAL TIME." : " DEMO VISUALIZATION MODE ACTIVE."}
                    <br/>
                    CURRENT MODE: {earthState.mode === RotationMode.SIDEREAL ? "FIXED STARS RELATIVE" : "SUN RELATIVE"}.
                    <br/>
@@ -313,7 +321,7 @@ const App: React.FC = () => {
           <div className="absolute bottom-6 right-6 text-right pointer-events-none select-none">
              <div className="text-[10px] text-emerald-800 uppercase tracking-[0.2em] mb-1 font-mono">Status</div>
              <div className={`text-xs font-mono tracking-widest ${earthState.autoRotate ? 'text-emerald-400 drop-shadow-[0_0_5px_rgba(52,211,153,0.8)]' : 'text-orange-500'}`}>
-               {earthState.autoRotate ? (earthState.speed === 1 ? 'LIVE UTC SYNC ACTIVE' : `SIMULATION SPEED ${earthState.speed}x`) : 'ROTATION PAUSED'}
+               {earthState.autoRotate ? (earthState.speed === 1 ? 'LIVE SYNC ACTIVE' : `SIMULATION SPEED ${earthState.speed}x`) : 'ROTATION PAUSED'}
              </div>
           </div>
         </>
