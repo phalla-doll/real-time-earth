@@ -7,6 +7,7 @@ import { RotationMode, EarthState } from './types';
 import { Sun } from './components/Sun';
 import { FPSCounter } from './components/FPSCounter';
 import { Credit } from './components/Credit';
+import { trackEvent, AnalyticsEvents } from './analytics';
 
 // Signal component to notify when Suspense has finished loading
 const ReadySignal: React.FC<{ onReady: () => void }> = ({ onReady }) => {
@@ -96,18 +97,36 @@ const App: React.FC = () => {
     speed: 1,
   });
 
-  const toggleClouds = () => setEarthState(prev => ({ ...prev, showClouds: !prev.showClouds }));
-  const toggleAxis = () => setEarthState(prev => ({ ...prev, showAxis: !prev.showAxis }));
-  const toggleMoon = () => setEarthState(prev => ({ ...prev, showMoon: !prev.showMoon }));
-  const toggleSun = () => setEarthState(prev => ({ ...prev, showSun: !prev.showSun }));
-  const toggleAutoRotate = () => setEarthState(prev => ({ ...prev, autoRotate: !prev.autoRotate }));
+  const toggleClouds = () => {
+    trackEvent(AnalyticsEvents.TOGGLE_FEATURE, { feature: 'clouds', enabled: !earthState.showClouds });
+    setEarthState(prev => ({ ...prev, showClouds: !prev.showClouds }));
+  };
+  const toggleAxis = () => {
+    trackEvent(AnalyticsEvents.TOGGLE_FEATURE, { feature: 'axis', enabled: !earthState.showAxis });
+    setEarthState(prev => ({ ...prev, showAxis: !prev.showAxis }));
+  };
+  const toggleMoon = () => {
+    trackEvent(AnalyticsEvents.TOGGLE_FEATURE, { feature: 'moon', enabled: !earthState.showMoon });
+    setEarthState(prev => ({ ...prev, showMoon: !prev.showMoon }));
+  };
+  const toggleSun = () => {
+    trackEvent(AnalyticsEvents.TOGGLE_FEATURE, { feature: 'sun', enabled: !earthState.showSun });
+    setEarthState(prev => ({ ...prev, showSun: !prev.showSun }));
+  };
+  const toggleAutoRotate = () => {
+    trackEvent(AnalyticsEvents.TOGGLE_FEATURE, { feature: 'auto_rotate', enabled: !earthState.autoRotate });
+    setEarthState(prev => ({ ...prev, autoRotate: !prev.autoRotate }));
+  };
   
-  const setSpeed = (speed: number) => setEarthState(prev => ({ 
-    ...prev, 
-    speed,
-    // If speed is greater than 1, user likely wants to see animation, so force auto-rotate on
-    autoRotate: speed > 1 ? true : prev.autoRotate
-  }));
+  const setSpeed = (speed: number) => {
+    trackEvent(AnalyticsEvents.SPEED_CHANGE, { speed });
+    setEarthState(prev => ({ 
+      ...prev, 
+      speed,
+      // If speed is greater than 1, user likely wants to see animation, so force auto-rotate on
+      autoRotate: speed > 1 ? true : prev.autoRotate
+    }));
+  };
 
   return (
     <div className="relative w-full h-full bg-black font-sans">
@@ -139,7 +158,10 @@ const App: React.FC = () => {
       {showIntro && (
         <IntroOverlay 
           ready={resourcesReady} 
-          onComplete={() => setShowIntro(false)} 
+          onComplete={() => {
+            setShowIntro(false);
+            trackEvent(AnalyticsEvents.APP_LOADED, { timestamp: new Date().toISOString() });
+          }} 
         />
       )}
 
@@ -170,7 +192,10 @@ const App: React.FC = () => {
                   </label>
                   <div className="flex border border-emerald-900/50 bg-black/50 p-1 gap-1 rounded-none">
                     <button
-                      onClick={() => setEarthState(prev => ({ ...prev, mode: RotationMode.SOLAR }))}
+                      onClick={() => {
+                        setEarthState(prev => ({ ...prev, mode: RotationMode.SOLAR }));
+                        trackEvent(AnalyticsEvents.ROTATION_MODE_CHANGE, { mode: 'SOLAR' });
+                      }}
                       className={`flex-1 py-1.5 text-[10px] font-bold transition-all border rounded-none ${
                         earthState.mode === RotationMode.SOLAR 
                           ? 'bg-emerald-900/40 text-emerald-400 border-emerald-500/50 shadow-[inset_0_0_10px_rgba(16,185,129,0.1)]' 
@@ -181,7 +206,10 @@ const App: React.FC = () => {
                       <span className="block text-[8px] opacity-60">86,400s</span>
                     </button>
                     <button
-                      onClick={() => setEarthState(prev => ({ ...prev, mode: RotationMode.SIDEREAL }))}
+                      onClick={() => {
+                        setEarthState(prev => ({ ...prev, mode: RotationMode.SIDEREAL }));
+                        trackEvent(AnalyticsEvents.ROTATION_MODE_CHANGE, { mode: 'SIDEREAL' });
+                      }}
                       className={`flex-1 py-1.5 text-[10px] font-bold transition-all border rounded-none ${
                         earthState.mode === RotationMode.SIDEREAL 
                           ? 'bg-emerald-900/40 text-emerald-400 border-emerald-500/50 shadow-[inset_0_0_10px_rgba(16,185,129,0.1)]' 
