@@ -1,6 +1,6 @@
 # 🌍 Real-Time Earth 3D
 
-A high-fidelity 3D Earth visualization that rotates in real-time synchronized with UTC. Features solar and sidereal rotation modes, atmospheric clouds, and accurate axial tilt (23.4°).
+A high-fidelity 3D Earth visualization that rotates in real-time synchronized with UTC. Features solar and sidereal rotation modes, atmospheric clouds, accurate axial tilt (23.4°), and a complete Earth-Moon-Sun system.
 
 Built with React, Three.js, and TypeScript for an immersive, scientifically accurate Earth viewing experience.
 
@@ -12,6 +12,8 @@ Built with React, Three.js, and TypeScript for an immersive, scientifically accu
 - **🌞 Dual Rotation Modes**
   - **Solar Day** (86,400s) - Rotation relative to the Sun
   - **Sidereal Day** (86,164s) - Rotation relative to fixed stars
+- **🌕 Real-Time Moon** - Orbiting Moon with tidal locking and accurate orbital period (~27.3 days)
+- **☀️ Dynamic Sun** - Visible Sun with procedural shader effects (noise-based surface and corona)
 - **⚡ Adjustable Speed** - Choose from 1x, 3x, 5x, or 10x rotation speeds
 - **☁️ Atmospheric Cloud Layer** - Dynamic cloud layer with wind simulation (UV scrolling)
 - **🌐 Earth's Axial Tilt** - Accurate 23.4° axial tilt visualization
@@ -23,6 +25,7 @@ Built with React, Three.js, and TypeScript for an immersive, scientifically accu
   - Specular map for water reflections
   - Cloud alpha map
   - Night lights emission map
+  - High-res Moon texture
 
 ---
 
@@ -79,7 +82,7 @@ Built with React, Three.js, and TypeScript for an immersive, scientifically accu
 ### Controls
 
 - **Orbit**: Click and drag to rotate the camera around Earth
-- **Zoom**: Scroll or pinch to zoom in/out
+- **Zoom**: Scroll or pinch to zoom in/out (Max distance increased for system view)
 - **Pan**: Disabled (to maintain focus on Earth)
 
 ### Control Panel
@@ -95,6 +98,8 @@ Built with React, Three.js, and TypeScript for an immersive, scientifically accu
 **Toggles**
 - **Auto Rotate** - Enable/disable automatic rotation
 - **Atmosphere** - Show/hide cloud layer
+- **Moon** - Show/hide the Moon
+- **Sun** - Show/hide the visible Sun
 - **Show Axis** - Display Earth's rotational axis (red line)
 
 ### Status Indicators
@@ -111,13 +116,14 @@ Built with React, Three.js, and TypeScript for an immersive, scientifically accu
 real-time-earth/
 ├── components/
 │   ├── RealTimeGlobe.tsx    # Main Earth component with rotation logic
-│   └── Sun.tsx              # Directional light source (Sun)
+│   ├── Moon.tsx             # Moon component with orbital logic
+│   └── Sun.tsx              # Directional light and procedural Sun shader
 ├── App.tsx                  # Main application with UI and state management
 ├── types.ts                 # TypeScript types and physical constants
 ├── constants.ts             # Texture URLs and configuration
 ├── index.tsx                # React entry point
 ├── index.html               # HTML template with Tailwind CDN
-├── vite.config.ts           # Vite configuration
+├── vite.config.ts           # Vite configuration (optimized chunking)
 ├── tsconfig.json            # TypeScript configuration
 └── package.json             # Dependencies and scripts
 ```
@@ -125,9 +131,11 @@ real-time-earth/
 ### Key Files
 
 - **`RealTimeGlobe.tsx`** - Handles Earth rendering, texture loading, rotation physics, and cloud animation
+- **`Moon.tsx`** - Handles Moon rendering, tidal locking rotation, and orbital pathing
+- **`Sun.tsx`** - Handles scene lighting and renders the visual Sun using custom GLSL shaders
 - **`App.tsx`** - Main UI, state management, and control panel
-- **`types.ts`** - Defines rotation modes, Earth state interface, and physical constants (solar/sidereal day lengths, axial tilt)
-- **`constants.ts`** - Texture URLs from Three.js examples and three-globe repository
+- **`types.ts`** - Defines rotation modes, Earth state interface, and physical constants
+- **`constants.ts`** - Texture URLs and configuration
 
 ---
 
@@ -150,20 +158,25 @@ real-time-earth/
 - Calculates rotation angle based on elapsed time since Unix epoch
 - Ensures Earth's rotation stays synchronized with actual UTC time
 
-**Accelerated Mode (3x, 5x, 10x)**
-- Applies a 1000x visual multiplier for perceptible rotation
-- 3x button → ~3000x actual speed (~30s per rotation)
-- 10x button → ~10,000x actual speed (~8.6s per rotation)
+### Moon System
+- **Orbital Period**: ~27.3 days (Sidereal month)
+- **Tidal Locking**: The Moon rotates exactly once on its axis per orbit, always keeping the same face towards Earth.
+- **Visualization**: Scaled for visibility (radius ~0.27x Earth) and placed at a cinematic distance.
 
-### Axial Tilt
+### Sun Visualization
+- **Dynamic Shader**: Uses a custom GLSL fragment shader with 3D simplex noise to simulate the churning solar surface.
+- **Corona**: Multi-layered transparent geometry creates a glowing corona effect.
+- **Lighting**: Directional light source aligned with the visual Sun mesh.
 
-Earth's rotational axis is tilted at **23.439°** (23.4°) relative to its orbital plane, accurately represented in the visualization.
+### Optimization
+- **Chunk Splitting**: Vite configuration is optimized to split vendor libraries (Three.js, React) into separate chunks for better load performance.
 
 ### Textures
 
 All textures are sourced from publicly available CDNs:
-- **Diffuse, Normal, Specular, Clouds**: [Three.js Examples](https://threejs.org/examples/)
+- **Earth Maps**: [Three.js Examples](https://threejs.org/examples/)
 - **Night Lights**: [vasturiano/three-globe](https://github.com/vasturiano/three-globe)
+- **Moon**: [Three.js Examples](https://threejs.org/examples/)
 
 ---
 
