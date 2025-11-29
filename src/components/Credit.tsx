@@ -4,7 +4,7 @@ export const Credit: React.FC = () => {
   return (
     <div className="absolute bottom-6 left-6 text-left pointer-events-none select-none z-50">
       <div className="text-[10px] text-emerald-800 uppercase tracking-[0.2em] mb-1 font-mono">
-        Made with ThreeJS by
+        Made with R3F by
       </div>
       <a 
         href="https://mantha.vercel.app/"
