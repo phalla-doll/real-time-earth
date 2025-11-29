@@ -60,54 +60,54 @@ const App: React.FC = () => {
       <FPSCounter />
 
       {/* UI Overlay - Futuristic Design */}
-      <div className="absolute top-4 left-4 z-10 w-80">
-        <div className="bg-black/80 backdrop-blur-md text-emerald-400 p-6 border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.1)] rounded-none">
+      <div className="absolute top-4 left-4 z-10 w-64">
+        <div className="bg-black/80 backdrop-blur-md text-emerald-400 p-4 border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.1)] rounded-none">
           {/* Header */}
-          <div className="border-b border-emerald-500/30 pb-4 mb-5">
-            <h1 className="text-xl font-mono font-bold uppercase tracking-widest flex items-center gap-3 text-emerald-400">
-              <span className="w-2 h-2 bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981] rounded-none"></span>
+          <div className="border-b border-emerald-500/30 pb-3 mb-3">
+            <h1 className="text-lg font-mono font-bold uppercase tracking-widest flex items-center gap-2 text-emerald-400">
+              <span className="w-1.5 h-1.5 bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981] rounded-none"></span>
               Real-Time Earth
             </h1>
-            <p className="text-[10px] text-emerald-600/80 font-mono mt-2 uppercase tracking-wider">
+            <p className="text-[9px] text-emerald-600/80 font-mono mt-1 uppercase tracking-wider">
               System: UTC // Axial Tilt: 23.4°
             </p>
           </div>
 
-          <div className="space-y-6 font-mono">
+          <div className="space-y-4 font-mono">
             {/* Rotation Mode Selector */}
-            <div className="space-y-2">
-              <label className="text-[10px] font-bold text-emerald-700 uppercase tracking-widest">
+            <div className="space-y-1.5">
+              <label className="text-[9px] font-bold text-emerald-700 uppercase tracking-widest">
                 Rotation Reference
               </label>
               <div className="flex border border-emerald-900/50 bg-black/50 p-1 gap-1 rounded-none">
                 <button
                   onClick={() => setEarthState(prev => ({ ...prev, mode: RotationMode.SOLAR }))}
-                  className={`flex-1 py-2 text-xs font-bold transition-all border rounded-none ${
+                  className={`flex-1 py-1.5 text-[10px] font-bold transition-all border rounded-none ${
                     earthState.mode === RotationMode.SOLAR 
                       ? 'bg-emerald-900/40 text-emerald-400 border-emerald-500/50 shadow-[inset_0_0_10px_rgba(16,185,129,0.1)]' 
                       : 'text-emerald-800 border-transparent hover:text-emerald-500 hover:bg-emerald-900/10'
                   }`}
                 >
                   SOLAR
-                  <span className="block text-[9px] opacity-60">86,400s</span>
+                  <span className="block text-[8px] opacity-60">86,400s</span>
                 </button>
                 <button
                   onClick={() => setEarthState(prev => ({ ...prev, mode: RotationMode.SIDEREAL }))}
-                  className={`flex-1 py-2 text-xs font-bold transition-all border rounded-none ${
+                  className={`flex-1 py-1.5 text-[10px] font-bold transition-all border rounded-none ${
                     earthState.mode === RotationMode.SIDEREAL 
                       ? 'bg-emerald-900/40 text-emerald-400 border-emerald-500/50 shadow-[inset_0_0_10px_rgba(16,185,129,0.1)]' 
                       : 'text-emerald-800 border-transparent hover:text-emerald-500 hover:bg-emerald-900/10'
                   }`}
                 >
                   SIDEREAL
-                  <span className="block text-[9px] opacity-60">86,164s</span>
+                  <span className="block text-[8px] opacity-60">86,164s</span>
                 </button>
               </div>
             </div>
 
             {/* Rotation Speed Selector */}
-            <div className="space-y-2">
-              <label className="text-[10px] font-bold text-emerald-700 uppercase tracking-widest">
+            <div className="space-y-1.5">
+              <label className="text-[9px] font-bold text-emerald-700 uppercase tracking-widest">
                 Rotation Speed
               </label>
               <div className="flex border border-emerald-900/50 bg-black/50 p-1 gap-1 rounded-none">
@@ -115,7 +115,7 @@ const App: React.FC = () => {
                   <button
                     key={s}
                     onClick={() => setSpeed(s)}
-                    className={`flex-1 py-2 text-xs font-bold transition-all border rounded-none ${
+                    className={`flex-1 py-1.5 text-[10px] font-bold transition-all border rounded-none ${
                       earthState.speed === s
                         ? 'bg-emerald-900/40 text-emerald-400 border-emerald-500/50 shadow-[inset_0_0_10px_rgba(16,185,129,0.1)]'
                         : 'text-emerald-800 border-transparent hover:text-emerald-500 hover:bg-emerald-900/10'
@@ -128,61 +128,61 @@ const App: React.FC = () => {
             </div>
 
             {/* Toggles */}
-            <div className="space-y-4 pt-2">
+            <div className="space-y-3 pt-1">
               {/* Auto Rotate Toggle */}
               <div className="flex items-center justify-between group">
-                <span className="text-xs text-emerald-100/70 group-hover:text-emerald-400 transition-colors uppercase tracking-wider">Auto Rotate</span>
+                <span className="text-[10px] text-emerald-100/70 group-hover:text-emerald-400 transition-colors uppercase tracking-wider">Auto Rotate</span>
                 <button
                   onClick={toggleAutoRotate}
-                  className={`w-10 h-5 border transition-all relative rounded-none ${
+                  className={`w-8 h-4 border transition-all relative rounded-none ${
                     earthState.autoRotate 
                     ? 'bg-emerald-500/20 border-emerald-500' 
                     : 'bg-black border-emerald-900'
                   }`}
                 >
-                  <div className={`absolute top-0.5 bottom-0.5 w-4 bg-emerald-400 transition-all duration-300 rounded-none ${
-                    earthState.autoRotate ? 'left-5 shadow-[0_0_8px_#34d399]' : 'left-0.5 opacity-30 bg-emerald-800'
+                  <div className={`absolute top-0.5 bottom-0.5 w-3 bg-emerald-400 transition-all duration-300 rounded-none ${
+                    earthState.autoRotate ? 'left-4 shadow-[0_0_8px_#34d399]' : 'left-0.5 opacity-30 bg-emerald-800'
                   }`} />
                 </button>
               </div>
 
               {/* Atmosphere Toggle */}
               <div className="flex items-center justify-between group">
-                <span className="text-xs text-emerald-100/70 group-hover:text-emerald-400 transition-colors uppercase tracking-wider">Atmosphere</span>
+                <span className="text-[10px] text-emerald-100/70 group-hover:text-emerald-400 transition-colors uppercase tracking-wider">Atmosphere</span>
                 <button
                   onClick={toggleClouds}
-                  className={`w-10 h-5 border transition-all relative rounded-none ${
+                  className={`w-8 h-4 border transition-all relative rounded-none ${
                     earthState.showClouds 
                     ? 'bg-emerald-500/20 border-emerald-500' 
                     : 'bg-black border-emerald-900'
                   }`}
                 >
-                  <div className={`absolute top-0.5 bottom-0.5 w-4 bg-emerald-400 transition-all duration-300 rounded-none ${
-                    earthState.showClouds ? 'left-5 shadow-[0_0_8px_#34d399]' : 'left-0.5 opacity-30 bg-emerald-800'
+                  <div className={`absolute top-0.5 bottom-0.5 w-3 bg-emerald-400 transition-all duration-300 rounded-none ${
+                    earthState.showClouds ? 'left-4 shadow-[0_0_8px_#34d399]' : 'left-0.5 opacity-30 bg-emerald-800'
                   }`} />
                 </button>
               </div>
               
               {/* Axis Toggle */}
               <div className="flex items-center justify-between group">
-                <span className="text-xs text-emerald-100/70 group-hover:text-emerald-400 transition-colors uppercase tracking-wider">Show Axis</span>
+                <span className="text-[10px] text-emerald-100/70 group-hover:text-emerald-400 transition-colors uppercase tracking-wider">Show Axis</span>
                 <button
                   onClick={toggleAxis}
-                  className={`w-10 h-5 border transition-all relative rounded-none ${
+                  className={`w-8 h-4 border transition-all relative rounded-none ${
                     earthState.showAxis 
                     ? 'bg-emerald-500/20 border-emerald-500' 
                     : 'bg-black border-emerald-900'
                   }`}
                 >
-                  <div className={`absolute top-0.5 bottom-0.5 w-4 bg-emerald-400 transition-all duration-300 rounded-none ${
-                    earthState.showAxis ? 'left-5 shadow-[0_0_8px_#34d399]' : 'left-0.5 opacity-30 bg-emerald-800'
+                  <div className={`absolute top-0.5 bottom-0.5 w-3 bg-emerald-400 transition-all duration-300 rounded-none ${
+                    earthState.showAxis ? 'left-4 shadow-[0_0_8px_#34d399]' : 'left-0.5 opacity-30 bg-emerald-800'
                   }`} />
                 </button>
               </div>
             </div>
             
             {/* Info Box */}
-            <div className="mt-6 p-3 bg-emerald-900/10 border-l-2 border-emerald-500/50 text-[10px] text-emerald-400/60 leading-relaxed font-mono rounded-none">
+            <div className="mt-4 p-2 bg-emerald-900/10 border-l-2 border-emerald-500/50 text-[9px] text-emerald-400/60 leading-relaxed font-mono rounded-none">
                <span className="text-emerald-500 font-bold">INFO_LOG:</span>
                {earthState.speed === 1 ? " SYSTEM SYNCHRONIZED WITH UTC." : " DEMO VISUALIZATION MODE ACTIVE."}
                <br/>
