@@ -11,6 +11,8 @@ export const TEXTURES = {
   CLOUDS: 'https://threejs.org/examples/textures/planets/earth_clouds_1024.png',
   // Night lights (Emission) - Sourced from reliable raw GitHub
   NIGHT: 'https://raw.githubusercontent.com/vasturiano/three-globe/master/example/img/earth-night.jpg',
+  // Moon Texture
+  MOON: 'https://threejs.org/examples/textures/planets/moon_1024.jpg',
 };
 
 export const CAMERA_POSITION: [number, number, number] = [0, 0, 4.5];

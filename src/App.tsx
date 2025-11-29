@@ -2,6 +2,7 @@ import React, { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stars, Html } from '@react-three/drei';
 import { RealTimeGlobe } from './components/RealTimeGlobe';
+import { Moon } from './components/Moon';
 import { RotationMode, EarthState } from './types';
 import { Sun } from './components/Sun';
 import { FPSCounter } from './components/FPSCounter';
@@ -18,12 +19,14 @@ const App: React.FC = () => {
     mode: RotationMode.SOLAR,
     showClouds: true,
     showAxis: false,
+    showMoon: true,
     autoRotate: true,
     speed: 1,
   });
 
   const toggleClouds = () => setEarthState(prev => ({ ...prev, showClouds: !prev.showClouds }));
   const toggleAxis = () => setEarthState(prev => ({ ...prev, showAxis: !prev.showAxis }));
+  const toggleMoon = () => setEarthState(prev => ({ ...prev, showMoon: !prev.showMoon }));
   const toggleAutoRotate = () => setEarthState(prev => ({ ...prev, autoRotate: !prev.autoRotate }));
   
   const setSpeed = (speed: number) => setEarthState(prev => ({ 
@@ -52,6 +55,9 @@ const App: React.FC = () => {
             autoRotate={earthState.autoRotate}
             speed={earthState.speed}
           />
+          {earthState.showMoon && (
+            <Moon autoRotate={earthState.autoRotate} speed={earthState.speed} />
+          )}
         </Suspense>
         
         <OrbitControls enablePan={false} minDistance={2.5} maxDistance={10} />
@@ -159,6 +165,23 @@ const App: React.FC = () => {
                 >
                   <div className={`absolute top-0.5 bottom-0.5 w-3 bg-emerald-400 transition-all duration-300 rounded-none ${
                     earthState.showClouds ? 'left-4 shadow-[0_0_8px_#34d399]' : 'left-0.5 opacity-30 bg-emerald-800'
+                  }`} />
+                </button>
+              </div>
+
+              {/* Moon Toggle */}
+              <div className="flex items-center justify-between group">
+                <span className="text-[10px] text-emerald-100/70 group-hover:text-emerald-400 transition-colors uppercase tracking-wider">Moon</span>
+                <button
+                  onClick={toggleMoon}
+                  className={`w-8 h-4 border transition-all relative rounded-none ${
+                    earthState.showMoon 
+                    ? 'bg-emerald-500/20 border-emerald-500' 
+                    : 'bg-black border-emerald-900'
+                  }`}
+                >
+                  <div className={`absolute top-0.5 bottom-0.5 w-3 bg-emerald-400 transition-all duration-300 rounded-none ${
+                    earthState.showMoon ? 'left-4 shadow-[0_0_8px_#34d399]' : 'left-0.5 opacity-30 bg-emerald-800'
                   }`} />
                 </button>
               </div>
