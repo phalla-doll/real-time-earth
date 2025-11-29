@@ -6,6 +6,7 @@ import { Moon } from './components/Moon';
 import { RotationMode, EarthState } from './types';
 import { Sun } from './components/Sun';
 import { FPSCounter } from './components/FPSCounter';
+import { Credit } from './components/Credit';
 
 // Loading fallback component
 const Loader = () => (
@@ -65,6 +66,7 @@ const App: React.FC = () => {
       </Canvas>
 
       <FPSCounter />
+      <Credit />
 
       {/* UI Overlay - Futuristic Design */}
       <div className="absolute top-4 left-4 z-10 w-64">
