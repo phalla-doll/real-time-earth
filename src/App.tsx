@@ -8,6 +8,7 @@ import { Sun } from './components/Sun';
 import { FPSCounter } from './components/FPSCounter';
 import { Credit } from './components/Credit';
 import { trackEvent, AnalyticsEvents } from './analytics';
+import { playTechClick } from './utils/sound';
 
 // Signal component to notify when Suspense has finished loading
 const ReadySignal: React.FC<{ onReady: () => void }> = ({ onReady }) => {
@@ -98,27 +99,33 @@ const App: React.FC = () => {
   });
 
   const toggleClouds = () => {
+    playTechClick();
     trackEvent(AnalyticsEvents.TOGGLE_FEATURE, { feature: 'clouds', enabled: !earthState.showClouds });
     setEarthState(prev => ({ ...prev, showClouds: !prev.showClouds }));
   };
   const toggleAxis = () => {
+    playTechClick();
     trackEvent(AnalyticsEvents.TOGGLE_FEATURE, { feature: 'axis', enabled: !earthState.showAxis });
     setEarthState(prev => ({ ...prev, showAxis: !prev.showAxis }));
   };
   const toggleMoon = () => {
+    playTechClick();
     trackEvent(AnalyticsEvents.TOGGLE_FEATURE, { feature: 'moon', enabled: !earthState.showMoon });
     setEarthState(prev => ({ ...prev, showMoon: !prev.showMoon }));
   };
   const toggleSun = () => {
+    playTechClick();
     trackEvent(AnalyticsEvents.TOGGLE_FEATURE, { feature: 'sun', enabled: !earthState.showSun });
     setEarthState(prev => ({ ...prev, showSun: !prev.showSun }));
   };
   const toggleAutoRotate = () => {
+    playTechClick();
     trackEvent(AnalyticsEvents.TOGGLE_FEATURE, { feature: 'auto_rotate', enabled: !earthState.autoRotate });
     setEarthState(prev => ({ ...prev, autoRotate: !prev.autoRotate }));
   };
   
   const setSpeed = (speed: number) => {
+    playTechClick();
     trackEvent(AnalyticsEvents.SPEED_CHANGE, { speed });
     setEarthState(prev => ({ 
       ...prev, 
@@ -193,6 +200,7 @@ const App: React.FC = () => {
                   <div className="flex border border-emerald-900/50 bg-black/50 p-1 gap-1 rounded-none">
                     <button
                       onClick={() => {
+                        playTechClick();
                         setEarthState(prev => ({ ...prev, mode: RotationMode.SOLAR }));
                         trackEvent(AnalyticsEvents.ROTATION_MODE_CHANGE, { mode: 'SOLAR' });
                       }}
@@ -207,6 +215,7 @@ const App: React.FC = () => {
                     </button>
                     <button
                       onClick={() => {
+                        playTechClick();
                         setEarthState(prev => ({ ...prev, mode: RotationMode.SIDEREAL }));
                         trackEvent(AnalyticsEvents.ROTATION_MODE_CHANGE, { mode: 'SIDEREAL' });
                       }}
