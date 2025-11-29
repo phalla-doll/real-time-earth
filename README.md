@@ -26,6 +26,9 @@ Built with React, Three.js, and TypeScript for an immersive, scientifically accu
   - Cloud alpha map
   - Night lights emission map
   - High-res Moon texture
+- **🔊 Audio Feedback** - Tech-inspired sound effects for user interactions
+- **📊 Performance Metrics** - Real-time FPS monitoring
+- **📱 Modern UI** - Responsive, sci-fi themed interface built with Tailwind CSS
 
 ---
 
