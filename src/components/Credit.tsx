@@ -7,7 +7,7 @@ export const Credit: React.FC = () => {
         Made with R3F by
       </div>
       <a 
-        href="https://mantha.vercel.app/"
+        href="https://mantha.vercel.app/?ref=real-time-earth"
         target="_blank"
         rel="noopener noreferrer"
         className="text-xs font-mono tracking-widest text-emerald-400 drop-shadow-[0_0_5px_rgba(52,211,153,0.8)] pointer-events-auto hover:text-emerald-300 transition-colors cursor-pointer block"
