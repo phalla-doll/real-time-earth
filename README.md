@@ -114,14 +114,15 @@ Built with React, Three.js, and TypeScript for an immersive, scientifically accu
 
 ```
 real-time-earth/
-├── components/
-│   ├── RealTimeGlobe.tsx    # Main Earth component with rotation logic
-│   ├── Moon.tsx             # Moon component with orbital logic
-│   └── Sun.tsx              # Directional light and procedural Sun shader
-├── App.tsx                  # Main application with UI and state management
-├── types.ts                 # TypeScript types and physical constants
-├── constants.ts             # Texture URLs and configuration
-├── index.tsx                # React entry point
+├── src/
+│   ├── components/
+│   │   ├── RealTimeGlobe.tsx    # Main Earth component with rotation logic
+│   │   ├── Moon.tsx             # Moon component with orbital logic
+│   │   └── Sun.tsx              # Directional light and procedural Sun shader
+│   ├── App.tsx                  # Main application with UI and state management
+│   ├── types.ts                 # TypeScript types and physical constants
+│   ├── constants.ts             # Texture URLs and configuration
+│   └── index.tsx                # React entry point
 ├── index.html               # HTML template with Tailwind CDN
 ├── vite.config.ts           # Vite configuration (optimized chunking)
 ├── tsconfig.json            # TypeScript configuration
