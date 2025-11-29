@@ -1,9 +1,10 @@
 import React, { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stars, Stats, Html } from '@react-three/drei';
+import { OrbitControls, Stars, Html } from '@react-three/drei';
 import { RealTimeGlobe } from './components/RealTimeGlobe';
 import { RotationMode, EarthState } from './types';
 import { Sun } from './components/Sun';
+import { FPSCounter } from './components/FPSCounter';
 
 // Loading fallback component
 const Loader = () => (
@@ -54,8 +55,9 @@ const App: React.FC = () => {
         </Suspense>
         
         <OrbitControls enablePan={false} minDistance={2.5} maxDistance={10} />
-        <Stats className="!left-auto !right-0 opacity-50" />
       </Canvas>
+
+      <FPSCounter />
 
       {/* UI Overlay - Futuristic Design */}
       <div className="absolute top-4 left-4 z-10 w-80">
