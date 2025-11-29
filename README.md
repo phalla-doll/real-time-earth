@@ -101,9 +101,9 @@ Built with React, Three.js, and TypeScript for an immersive, scientifically accu
 **Toggles**
 - **Auto Rotate** - Enable/disable automatic rotation
 - **Atmosphere** - Show/hide cloud layer
-- **Moon** - Show/hide the Moon
-- **Sun** - Show/hide the visible Sun
-- **Show Axis** - Display Earth's rotational axis (red line)
+- **Show Axis** - Toggle visibility of Earth's axial tilt (23.4°)
+- **Moon** - Toggle Moon visibility
+- **Sun** - Toggle Sun visibility
 
 ### Status Indicators
 
@@ -121,8 +121,13 @@ real-time-earth/
 │   ├── components/
 │   │   ├── RealTimeGlobe.tsx    # Main Earth component with rotation logic
 │   │   ├── Moon.tsx             # Moon component with orbital logic
-│   │   └── Sun.tsx              # Directional light and procedural Sun shader
+│   │   ├── Sun.tsx              # Directional light and procedural Sun shader
+│   │   ├── FPSCounter.tsx       # Real-time performance monitoring
+│   │   └── Credit.tsx           # Attribution component
+│   ├── utils/
+│   │   └── sound.ts             # Audio context and sound generation
 │   ├── App.tsx                  # Main application with UI and state management
+│   ├── analytics.ts             # GA4 event tracking
 │   ├── types.ts                 # TypeScript types and physical constants
 │   ├── constants.ts             # Texture URLs and configuration
 │   └── index.tsx                # React entry point
@@ -140,6 +145,8 @@ real-time-earth/
 - **`App.tsx`** - Main UI, state management, and control panel
 - **`types.ts`** - Defines rotation modes, Earth state interface, and physical constants
 - **`constants.ts`** - Texture URLs and configuration
+- **`utils/sound.ts`** - Generates procedural audio effects using Web Audio API
+- **`analytics.ts`** - Handles Google Analytics 4 event tracking
 
 ---
 
@@ -171,6 +178,11 @@ real-time-earth/
 - **Dynamic Shader**: Uses a custom GLSL fragment shader with 3D simplex noise to simulate the churning solar surface.
 - **Corona**: Multi-layered transparent geometry creates a glowing corona effect.
 - **Lighting**: Directional light source aligned with the visual Sun mesh.
+
+### Procedural Audio
+- **Web Audio API**: Sound effects are generated in real-time using oscillators and gain nodes.
+- **No Assets**: Zero external audio files, keeping the bundle size small.
+- **Tech/Sci-Fi Feel**: Custom frequency ramps create "chirp" and "tick" sounds inspired by sci-fi interfaces.
 
 ### Optimization
 - **Chunk Splitting**: Vite configuration is optimized to split vendor libraries (Three.js, React) into separate chunks for better load performance.
