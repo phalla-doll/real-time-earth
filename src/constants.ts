@@ -13,6 +13,8 @@ export const TEXTURES = {
   NIGHT: 'https://raw.githubusercontent.com/vasturiano/three-globe/master/example/img/earth-night.jpg',
   // Moon Texture
   MOON: 'https://threejs.org/examples/textures/planets/moon_1024.jpg',
+  // Sun Texture (Optional, using standard material often looks better for simple sun)
+  SUN: 'https://threejs.org/examples/textures/planets/sun.jpg', // Note: might not exist in examples, but let's try or fallback to color
 };
 
 export const CAMERA_POSITION: [number, number, number] = [0, 0, 4.5];

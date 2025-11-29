@@ -20,6 +20,7 @@ const App: React.FC = () => {
     showClouds: true,
     showAxis: false,
     showMoon: true,
+    showSun: true,
     autoRotate: true,
     speed: 1,
   });
@@ -27,6 +28,7 @@ const App: React.FC = () => {
   const toggleClouds = () => setEarthState(prev => ({ ...prev, showClouds: !prev.showClouds }));
   const toggleAxis = () => setEarthState(prev => ({ ...prev, showAxis: !prev.showAxis }));
   const toggleMoon = () => setEarthState(prev => ({ ...prev, showMoon: !prev.showMoon }));
+  const toggleSun = () => setEarthState(prev => ({ ...prev, showSun: !prev.showSun }));
   const toggleAutoRotate = () => setEarthState(prev => ({ ...prev, autoRotate: !prev.autoRotate }));
   
   const setSpeed = (speed: number) => setEarthState(prev => ({ 
@@ -43,11 +45,10 @@ const App: React.FC = () => {
         <color attach="background" args={['#050505']} />
         
         <ambientLight intensity={0.1} /> 
-        <Sun />
-        
         <Stars radius={300} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
         
         <Suspense fallback={<Loader />}>
+          <Sun showSun={earthState.showSun} />
           <RealTimeGlobe 
             mode={earthState.mode} 
             showClouds={earthState.showClouds} 
@@ -60,7 +61,7 @@ const App: React.FC = () => {
           )}
         </Suspense>
         
-        <OrbitControls enablePan={false} minDistance={2.5} maxDistance={10} />
+        <OrbitControls enablePan={false} minDistance={2.5} maxDistance={50} />
       </Canvas>
 
       <FPSCounter />
@@ -182,6 +183,23 @@ const App: React.FC = () => {
                 >
                   <div className={`absolute top-0.5 bottom-0.5 w-3 bg-emerald-400 transition-all duration-300 rounded-none ${
                     earthState.showMoon ? 'left-4 shadow-[0_0_8px_#34d399]' : 'left-0.5 opacity-30 bg-emerald-800'
+                  }`} />
+                </button>
+              </div>
+
+              {/* Sun Toggle */}
+              <div className="flex items-center justify-between group">
+                <span className="text-[10px] text-emerald-100/70 group-hover:text-emerald-400 transition-colors uppercase tracking-wider">Sun</span>
+                <button
+                  onClick={toggleSun}
+                  className={`w-8 h-4 border transition-all relative rounded-none ${
+                    earthState.showSun 
+                    ? 'bg-emerald-500/20 border-emerald-500' 
+                    : 'bg-black border-emerald-900'
+                  }`}
+                >
+                  <div className={`absolute top-0.5 bottom-0.5 w-3 bg-emerald-400 transition-all duration-300 rounded-none ${
+                    earthState.showSun ? 'left-4 shadow-[0_0_8px_#34d399]' : 'left-0.5 opacity-30 bg-emerald-800'
                   }`} />
                 </button>
               </div>

@@ -8,6 +8,7 @@ export interface EarthState {
   showClouds: boolean;
   showAxis: boolean;
   showMoon: boolean;
+  showSun: boolean;
   autoRotate: boolean;
   speed: number;
 }
