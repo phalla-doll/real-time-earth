@@ -79,6 +79,7 @@ const IntroOverlay: React.FC<{ ready: boolean; onComplete: () => void }> = ({ re
 const App: React.FC = () => {
   const [resourcesReady, setResourcesReady] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
+  const [showControls, setShowControls] = useState(true);
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -178,9 +179,21 @@ const App: React.FC = () => {
           <Credit />
 
           {/* UI Overlay - Futuristic Design */}
-          <div className="absolute top-4 left-4 z-10 w-64">
-            <div className="bg-black/80 backdrop-blur-md text-emerald-400 p-4 border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.1)] rounded-none">
-              {/* Header */}
+          {showControls ? (
+            <div className="absolute top-4 left-4 z-10 w-64">
+              <div className="bg-black/80 backdrop-blur-md text-emerald-400 p-4 border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.1)] rounded-none relative">
+                <button 
+                  onClick={() => {
+                    playTechClick();
+                    setShowControls(false);
+                  }}
+                  className="absolute top-2 right-2 text-emerald-500/50 hover:text-emerald-400 transition-colors z-20"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                {/* Header */}
               <div className="border-b border-emerald-500/30 pb-3 mb-3">
                 <h1 className="text-lg font-mono font-bold uppercase tracking-widest flex items-center gap-2 text-emerald-400">
                   <span className="w-1.5 h-1.5 bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981] rounded-none"></span>
@@ -353,6 +366,21 @@ const App: React.FC = () => {
               </div>
             </div>
           </div>
+          ) : (
+            <button
+              onClick={() => {
+                playTechClick();
+                setShowControls(true);
+              }}
+              className="absolute top-4 left-4 z-10 p-2 bg-black/80 backdrop-blur-md border border-emerald-500/30 text-emerald-400 hover:bg-emerald-900/20 transition-all shadow-[0_0_20px_rgba(16,185,129,0.1)] group"
+            >
+               <div className="space-y-1">
+                 <div className="w-5 h-0.5 bg-emerald-500/80 group-hover:bg-emerald-400 transition-colors shadow-[0_0_4px_#10b981]"></div>
+                 <div className="w-5 h-0.5 bg-emerald-500/80 group-hover:bg-emerald-400 transition-colors shadow-[0_0_4px_#10b981]"></div>
+                 <div className="w-5 h-0.5 bg-emerald-500/80 group-hover:bg-emerald-400 transition-colors shadow-[0_0_4px_#10b981]"></div>
+               </div>
+            </button>
+          )}
           
           {/* Footer Info */}
           <div className="absolute bottom-6 right-6 text-right pointer-events-none select-none">
