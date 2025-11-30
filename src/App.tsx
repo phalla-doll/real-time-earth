@@ -372,13 +372,11 @@ const App: React.FC = () => {
                 playTechClick();
                 setShowControls(true);
               }}
-              className="absolute top-4 left-4 z-10 p-2 bg-black/80 backdrop-blur-md border border-emerald-500/30 text-emerald-400 hover:bg-emerald-900/20 transition-all shadow-[0_0_20px_rgba(16,185,129,0.1)] group"
+              className="absolute top-4 left-4 z-10 w-6 h-6 bg-emerald-500/20 border border-emerald-500 backdrop-blur-md hover:bg-emerald-500/40 transition-all shadow-[0_0_10px_rgba(16,185,129,0.4)] rounded-none group"
             >
-               <div className="space-y-1">
-                 <div className="w-5 h-0.5 bg-emerald-500/80 group-hover:bg-emerald-400 transition-colors shadow-[0_0_4px_#10b981]"></div>
-                 <div className="w-5 h-0.5 bg-emerald-500/80 group-hover:bg-emerald-400 transition-colors shadow-[0_0_4px_#10b981]"></div>
-                 <div className="w-5 h-0.5 bg-emerald-500/80 group-hover:bg-emerald-400 transition-colors shadow-[0_0_4px_#10b981]"></div>
-               </div>
+              <div className="w-full h-full relative">
+                 <div className="absolute inset-1 bg-emerald-500 group-hover:bg-emerald-400 transition-colors shadow-[0_0_5px_#10b981]"></div>
+              </div>
             </button>
           )}
           
